@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="hu">
+<head>
+    <meta charset="utf-8">
+    <title>Regisztráció</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <script th:src="@{/js/jquery-3.6.0.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+</head>
+
+<body>
+<div class="container text-center">
+    <div>
+        <h1>Felhasználó regisztráció</h1>
+    </div>
+    <hr>
+    <form th:action="@{/registration_process}" th:object="${user}" method="post" enctype="multipart/form-data" style="max-width: 600px; margin: 0 auto;">
+
+        <div class="m-3">
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Név: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{nev}" class="form-control" required/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Azonosító: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{username}" class="form-control" required/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">E-mail: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{email}" class="form-control" required/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Jelszó: </label>
+                <div class="col-8">
+                    <input type="password" th:field="*{password}" class="form-control"
+                           required minlength="6" maxlength="10"/>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Regisztráció</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

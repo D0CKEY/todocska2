@@ -1,0 +1,174 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="hu">
+<head>
+    <title>Users</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <script th:src="@{/js/jquery-3.6.0.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+    <style>
+        table, td, th, tr {
+            border: 1px solid black;
+        }
+
+        #table2 {
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        .space {
+            width: 4px;
+            height: auto;
+            display: inline-block;
+        }
+    </style>
+
+</head>
+<body>
+
+<div>
+    <table id="table2">
+        <thead>
+        <tr style="border-collapse: collapse;">
+            <th> Nev</th>
+            <th> Username</th>
+            <th> Email cim</th>
+            <th> Profilkep</th>
+            <th> Gombok</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="users : ${users}">
+            <td><span th:text="${users.nev}"> Nev </span></td>
+            <td><span th:text="${users.username}"> Username </span></td>
+            <td><span th:text="${users.email}"> Email cim </span></td>
+            <td><span th:text="${users.profilkep}"> Profilkep </span></td>
+
+            <td>
+                <button name="btn" id="btn" type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#myModal1">Szerkeszt
+                </button>
+                <div class="space"></div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">Torol</button>
+                <div class="space"></div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">Todo</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal" name="submit_change">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body" id="box">
+                <input type="button" id="ajaxBtn" value="Send Ajax request"/>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id="close" class="btn btn-danger" data-dismiss="modal" name="submit_change">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <h4 class="modal-title">Biztos vagy benne?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Tenyleg le akarod torolni?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="btnDelteYes">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal3">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <thead>
+                <tr style="border-collapse: collapse;">
+                    <th> Megnevezes</th>
+                    <th> Hatarido</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="todo : ${todo}">
+                    <td><span th:text="${todo.megnevezes}"> Megnevezes </span></td>
+                    <td><span th:text="${todo.hatarido}"> Hatarido </span></td>
+                </tr>
+                </tbody>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button id="demo" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function myFunction() {
+        $('#box').html('');
+        location.reload(true);
+    }
+
+    $("body").on('click', '#close', function () {
+        $('#box').html('');
+    });
+
+    $("body").on('click', '#btnDelteYes', function () {
+        var id = $('#myModal2').data('id');
+        alert(id);
+    });
+
+    $(document).ready(function () {
+        $('#ajaxBtn').click(function () {
+            $.ajax('/api/users/',
+                {
+                    dataType: 'json', // type of response data
+                    timeout: 500,     // timeout milliseconds
+                    success: function (users, status, xhr) {   // success callback function
+                        $('#box').append(users2[0].username);
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) { // error callback
+                        $('p').append('Error: ' + errorMessage);
+                        alert("hiba");
+                    }
+                });
+        });
+    });
+
+
+</script>
+</body>
+</html>

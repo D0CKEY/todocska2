@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:th="https://thymeleaf.org" lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Bejelentkezési oldal</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <script th:src="@{/js/jquery-3.6.0.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+</head>
+<body>
+<div class="container text-center">
+    <h1>TODO Bejelejentkezés</h1>
+    <hr>
+    <div>
+        <form th:action="@{/login}" method="post">
+            <input type="text" name="username" placeholder="Felhasználói név"/>
+            <br/><br/>
+            <input type="password" name="password" placeholder="Jelszó"/>
+            <br/><br/>
+            <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    $(function () {
+        const $loginForm = $("#loginForm");
+        if ($loginForm.length) {
+            $loginForm.validate({
+                rules: {
+                    email: {
+                        required: true
+                    },
+                    password: {
+                        required: true
+                    }
+                },
+                messages: {
+                    email: {
+                        required: 'Please enter the email'
+                    },
+                    password: {
+                        required: 'Please enter the password'
+                    }
+                }
+            })
+        }
+    })
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
